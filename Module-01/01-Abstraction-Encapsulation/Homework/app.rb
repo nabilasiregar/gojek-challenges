@@ -1,10 +1,10 @@
 require_relative 'hero'
 
-jin = Character.new("Jin Sakai", 100, 50)
+jin = Hero.new("Jin Sakai", 100, 50)
 puts jin
 puts "\n"
 
-khotun = Character.new("Khotun Khan", 500, 50)
+khotun = Hero.new("Khotun Khan", 500, 50)
 puts khotun
 puts "\n"
 

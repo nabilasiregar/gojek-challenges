@@ -12,8 +12,8 @@ class Character
   end
 
   def attack(enemy)
-    enemy.decrease_hitpoint(@attack_damage)
     puts "#{@name} attacks #{enemy.name} with #{@attack_damage} damage"
+    enemy.decrease_hitpoint(@attack_damage)
   end
   
   def decrease_hitpoint(attack_damage)
@@ -28,6 +28,6 @@ class Character
   end
 
   def deflected?
-    deflection = [true, false].sample
+    rand(100) <= 80
   end     
 end
