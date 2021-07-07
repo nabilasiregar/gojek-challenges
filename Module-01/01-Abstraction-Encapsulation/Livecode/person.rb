@@ -19,4 +19,12 @@ class Person
   def decrease_hitpoint(damage)
     @hitpoint -= damage
   end
+
+  def is_dead?
+    if @hitpoint <= 0
+      puts "#{@name} dies"
+      true
+    end
+  end
+      
 end
