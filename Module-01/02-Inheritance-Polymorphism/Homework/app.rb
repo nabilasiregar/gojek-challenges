@@ -24,8 +24,39 @@ puts "\n"
 @action = ActionsView.new
 user_input = @action.ask_user_for_action
 
+def hero_attacks_a_villain(hero, villains)
+  puts "Which enemy do you want to attack?"
+  i = 1
+  villains.each do |villain|
+    puts "#{i}) #{villain.name}"
+    i += 1
+  end
+end
 
+def hero_heals_an_ally(savior, heroes)
+  allies = []
+  heroes.each { |hero| allies.push(hero) if hero != savior}
+  return "you don't have an ally" if allies.empty?
 
+  puts "Which ally you want to heal?"
+  i = 1
+  allies.each do |ally|
+    puts "#{i}) #{ally.name}"
+    i += 1
+  end
+end
+
+turn = 1
+until (jin.is_dead? || villains.empty?) do 
+  puts "=========== Turn #{turn} ==========="
+  puts "\n"
+  if user_input == 1
+    return hero_attacks_a_villain(jin, villains)
+  elsif user_input == 2
+    return hero_heals_an_ally(jin, heroes)
+  end
+  turn += 1
+end
 
 
 
@@ -33,8 +64,8 @@ user_input = @action.ask_user_for_action
 
 # i = 1
 # until (jin.is_dead? || villains.empty?) do
-#   puts "=========== Turn #{i} ==========="
-#   puts "\n"
+  # puts "=========== Turn #{i} ==========="
+  # puts "\n"
 
 #   puts jin
 #   villains.each do |villain|
