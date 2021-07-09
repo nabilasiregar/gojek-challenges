@@ -1,20 +1,38 @@
 require_relative 'hero'
+require_relative 'villain'
+require_relative 'villain_character'
 
 jin = Hero.new("Jin Sakai", 100, 50)
 puts jin
 puts "\n"
 
-khotun = Hero.new("Khotun Khan", 500, 50)
-puts khotun
-puts "\n"
+mongol_archer = MongolArcher.new("Mongol Archer", 80, 40)
+mongol_spearman = MongolSpearman.new("Mongol Spearman", 120, 60)
+mongol_swordsman = MongolSwordsman.new("Mongol Swordsman", 100, 50)
+villains = [mongol_archer, mongol_spearman, mongol_swordsman]
 
-until khotun.is_dead? || jin.is_dead? do
-  jin.attack(khotun)
-  puts khotun
+i = 1
+until (jin.is_dead? || villains.empty?) do
+  puts "=========== Turn #{i} ==========="
   puts "\n"
 
-  khotun.attack(jin)
   puts jin
+  villains.each do |villain|
+    puts villain
+  end
   puts "\n"
+
+  jin.attack(villains[rand(villains.size)])
+  villains.each do |villain|
+    villains.delete(villain) if villain.is_dead? || villain.flee?
+  end
+  puts "\n"
+
+  villains.each do |villain|
+    villain.attack(jin)
+  end
+  puts "\n"
+
+  i += 1
 end
 
