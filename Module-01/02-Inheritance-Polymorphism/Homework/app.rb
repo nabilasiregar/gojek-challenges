@@ -23,20 +23,15 @@ puts "\n"
 
 @action = ActionsView.new
 user_input = @action.ask_user_for_action
-villain = @action.ask_user_for_a_villain(jin, villains)
-ally = @action.ask_user_for_an_ally(jin, heroes)
 
-turn = 1
-until (jin.is_dead? || villains.empty?) do 
-  puts "=========== Turn #{turn} ==========="
-  puts "\n"
-  if user_input == 1
-    return villain
-  elsif user_input == 2
-    return ally
-  end
-  turn += 1
+case user_input
+when 1 then @action.ask_user_for_a_villain(jin, villains)
+when 2 then @action.ask_user_for_an_ally(jin, heroes)
+else
+  puts "wrong input"
 end
+
+
 
 
 
