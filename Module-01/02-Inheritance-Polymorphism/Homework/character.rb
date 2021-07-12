@@ -5,10 +5,15 @@ class Character
     @name = name
     @hitpoint = hitpoint
     @attack_damage = attack_damage
+    @alive = true
   end
 
   def to_s
-    "#{@name} has #{@hitpoint} hitpoints and #{@attack_damage} attack damage" 
+    "#{@name}" 
+  end
+
+  def print_stats
+    puts "#{@name} has #{@hitpoint} hitpoints and #{@attack_damage} attack damage" 
   end
 
   def attack(enemy)
@@ -18,16 +23,26 @@ class Character
   
   def decrease_hitpoint(attack_damage)
     @hitpoint -= attack_damage
-  end
-
-  def is_dead?
     if @hitpoint <= 0
       puts "#{@name} dies"
-      true
+      die
     end
   end
 
-  def deflected?
-    rand(100) <= 80
+  def get_healed(healing_point)
+    @hitpoint += healing_point
+  end
+
+  def die
+    puts "#{@name} dies"
+    @alive = false
+  end
+
+  def is_dead?
+    !@alive
+  end
+
+  def removed?
+    is_dead?
   end    
 end

@@ -22,4 +22,8 @@ class Villain < Character
   def flee?
     @fled
   end
+
+  def removed?
+    is_dead? || flee?
+  end
 end
