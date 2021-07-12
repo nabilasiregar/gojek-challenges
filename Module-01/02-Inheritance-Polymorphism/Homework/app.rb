@@ -1,3 +1,5 @@
+require 'paint'
+require "pry"
 
 require_relative 'game'
 require_relative 'playable_character'

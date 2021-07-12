@@ -13,7 +13,7 @@ class Game
   end
 
   def start 
-    until (@playable_character.is_dead? || @non_playable_characters[:villains].empty? ) do
+    until (@playable_character.dead? || @non_playable_characters[:villains].empty? ) do
       print_characters_stats
       play_characters_turn
     end

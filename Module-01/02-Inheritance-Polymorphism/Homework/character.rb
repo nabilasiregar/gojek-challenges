@@ -1,11 +1,10 @@
 class Character 
-  attr_reader :name, :hitpoint, :attack_damage
+  attr_reader :name, :hitpoint, :attack_damage, :alive
 
   def initialize(name, hitpoint, attack_damage)
     @name = name
     @hitpoint = hitpoint
     @attack_damage = attack_damage
-    @alive = true
   end
 
   def to_s
@@ -13,36 +12,33 @@ class Character
   end
 
   def print_stats
-    puts "#{@name} has #{@hitpoint} hitpoints and #{@attack_damage} attack damage" 
+    puts Paint["#{@name} has #{@hitpoint} hitpoints and #{@attack_damage} attack damage", :green]
   end
 
-  def attack(enemy)
-    puts "#{@name} attacks #{enemy.name} with #{@attack_damage} damage"
-    enemy.decrease_hitpoint(@attack_damage)
+  def attack(target, action = "attacks")
+    puts Paint["#{@name} #{action} #{target.name} with #{@attack_damage} damage", :yellow]
+    target.decrease_hitpoint(@attack_damage)
   end
   
   def decrease_hitpoint(attack_damage)
     @hitpoint -= attack_damage
-    if @hitpoint <= 0
-      puts "#{@name} dies"
-      die
-    end
+    puts Paint[" · #{@name} dies", :yellow, :bright] if @hitpoint <= 0
   end
 
   def get_healed(healing_point)
     @hitpoint += healing_point
   end
 
-  def die
-    puts "#{@name} dies"
-    @alive = false
+  def alive?
+    @hitpoint > 0
   end
 
-  def is_dead?
-    !@alive
+
+  def dead?
+    @hitpoint <= 0
   end
 
   def removed?
-    is_dead?
-  end    
+    dead?
+  end
 end

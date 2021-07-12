@@ -10,7 +10,7 @@ class Hero < Character
 
   def decrease_hitpoint(attack_damage)
     if rand < @deflect_percentage
-      puts "#{@name} deflects the attack."
+      puts Paint[" · #{@name} deflects the attack.", :yellow, :bright]
     else
       super(attack_damage)
     end
@@ -18,7 +18,8 @@ class Hero < Character
 
   def heal(ally)
     ally.get_healed(@healing_point)
-    puts "#{ally} get healed by #{name}. #{healing_point} hitpoint restored."
+    puts Paint["#{ally} get healed by #{name}. #{healing_point} hitpoint restored.", :green, :bright]
   end
 end
+
     

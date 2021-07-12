@@ -8,15 +8,15 @@ class Villain < Character
   end
 
   def decrease_hitpoint(attack_damage)
-    @hitpoint -= attack_damage
-    if @hitpoint <= 50
+    super(attack_damage)
+    if alive? && @hitpoint <= 50
       flee if rand < @flee_percentage
     end
   end
 
   def flee
     @fled = true
-    puts "#{@name} has fled the battlefield with #{@hitpoint} hitpoint left"
+    puts Paint[" · #{@name} has fled the battlefield with #{@hitpoint} hitpoint left", :yellow, :bright]
   end
 
   def flee?
@@ -24,6 +24,6 @@ class Villain < Character
   end
 
   def removed?
-    is_dead? || flee?
+    dead? || flee?
   end
 end

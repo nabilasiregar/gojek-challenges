@@ -14,7 +14,7 @@ class PlayableCharacter < Hero
     elsif action == "attack"
       target = ask_user_for_target(action, villains)
       attack(target)
-      villains.delete(target) if (target.is_dead? || target.flee?) 
+      villains.delete(target) if (target.dead? || target.flee?) 
     end
   end
 
