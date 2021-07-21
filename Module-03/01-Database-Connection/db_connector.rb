@@ -4,10 +4,10 @@ require_relative './category'
 
 def create_db_client
   client = Mysql2::Client.new(
-    :host => "127.0.0.1",
-    :username => "root",
-    :password => "root",
-    :database => "food_oms_db"
+    :host => "localhost",
+    :username => ENV["DB_USERNAME"],
+    :password => ENV["DB_PASSWORD"],
+    :database => ENV["DB_NAME"]
   )
   client
 end
@@ -38,12 +38,11 @@ def get_all_items_with_categories
   client = create_db_client
   client.query("SELECT items.id, items.name, items.price, categories.id AS category_name
     FROM items 
-    JOIN items_categories ON items.id = items_categories.item_id
-    JOIN categories ON item_categories.category_id = categories.id")
+    LEFT JOIN item_categories ON items.id = item_categories.item_id
+    LEFT JOIN categories ON item_categories.category_id = categories.id")
     items = Array.new
     rawData.each do |data|
-      category = Category.new(data["category_id"], data["category_name"])
-      item = Item.new(data["id"], data["name"], data["price"], category)
+      item = Item.new(data["id"], data["name"], data["price"], data["category_name"])
       items.push(item)
     end
     items
@@ -51,13 +50,12 @@ end
 
 def insert_item(name, price)
   client = create_db_client
-  client.query("INSERT INTO items (name, price) VALUES ('#{name}', '#{price}'")
+  client.query("INSERT INTO items (name, price) VALUES ('#{name}', '#{price}')")
 end
 
 def insert_item_with_category(name, price, category_id)
   client = create_db_client
   client.query("INSERT INTO items (name, price) VALUES ('#{name}', '#{price}')")
-
   item_id = client.last_id
-  client.query("INSERT INTO item_categories (item_id, category_id) VALUES ('#{item_id}', '#{category_id}')")
+  client.query("insert into item_categories (item_id, category_id) values ('#{item_id}', '#{category_id}')")
 end

@@ -10,13 +10,19 @@ get '/' do
 end
 
 get '/items/new' do
-  erb :create
+  categories = get_all_categories
+    puts categories[0].id
+    puts categories[0].name
+    erb :create, locals: {
+        categories: categories
+    }
 end
 
-post '/items/create' do 
+post '/items' do 
   name = params['name']
   price = params['price']
-  insert_item(name, price)
+  category_id = params['category_id']
+  insert_item(name, price, category_id)
   redirect '/'
 end
 
