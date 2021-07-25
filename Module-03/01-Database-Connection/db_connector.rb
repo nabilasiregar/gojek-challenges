@@ -1,6 +1,7 @@
 require 'mysql2'
 require_relative './item'
 require_relative './category'
+require 'pry'
 
 def create_db_client
   client = Mysql2::Client.new(
@@ -18,10 +19,9 @@ def get_item(id)
     SELECT items.id, items.name, items.price, categories.id category_id, categories.name category_name
     FROM items
     LEFT JOIN item_categories on items.id = item_categories.item_id
-    LEFT JOIN categories on item_categories.category_id = category.id
+    LEFT JOIN categories on item_categories.category_id = categories.id
     WHERE items.id = #{id}
-  ").first
-  item = Item.new(raw_data['id'], raw_data['name'], raw_data['price'], raw_data['category_name'])
+  ")
 end
 
 def get_all_items
@@ -71,4 +71,10 @@ def delete_item(id)
   client = create_db_client
   client.query("DELETE FROM items WHERE id=#{id}")
   client.query("DELETE FROM item_categories WHERE item_id=#{id}")
+end
+
+def update_item(id, name, price, category_id)
+  client = create_db_client
+  client.query("UPDATE items SET name='#{name}', price=#{price} WHERE id=#{id}")
+  client.query("UPDATE item_categories SET category_id='#{category_id}' WHERE item_id='#{id}'")
 end

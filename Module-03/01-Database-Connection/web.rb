@@ -30,3 +30,24 @@ get '/item/:id/delete' do
   redirect "/"
 end
 
+get '/item/:id' do
+  item = get_item(params[:id])
+  erb :show, locals: { item: item }
+end
+
+get '/item/:id/edit' do
+  item = get_item(params[:id])
+  categories = get_all_categories()
+  erb :edit, locals: { item: item, categories: categories }
+end
+
+post '/item/:id/edit' do
+  id = params[:id]
+  name = params[:name]
+  price = params[:price]
+  category_id = params[:category]
+  update_item(id, name, price, category_id)
+  redirect "/item/#{id}"
+end
+
+

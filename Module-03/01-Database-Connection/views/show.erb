@@ -1,0 +1,8 @@
+ <h1>Item Detail</h1>
+  <p>Item name: <%= item.name %></p>
+  <p>Item price: <%= item.price %></p>
+  <% if item.category %>
+    <p>Item category: <%= item.category.name %></p>
+  <% end %>
+
+  <a href="/item/<%= item.id %>/edit">Edit item</a>
