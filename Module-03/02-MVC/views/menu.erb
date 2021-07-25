@@ -1,19 +1,46 @@
-
-<table>
-  <thead>
-    <th>Name</th>
-    <th>Price</th>
-    <th>Category</th>
-  </thead>
-  <tbody>
-  <% items.each do |item| %>
-  <tr>
-    <td><%= item.name %></td>
-    <td><%= item.price %></td>
-    <td><%= item.category %></td>
-    <td><a href="/item/<%= item.id %>">Show</a></td>
-  </tr>
-  <% end %>
-  </tbody>
-</table>
-<a href="/items/new">Add new item</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+</head>
+<body>
+<div class="row">
+  <div class="col-12 col-md-6">
+    <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Category</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% i = 1 %>
+    <% items.each do |item| %>
+      <tr>
+        <th scope="row"><%= i %></th>
+        <td><%= item.name %></td>
+        <td><%= item.price %></td>
+        <td><%= item.category %></td>
+  </div>
+  <div class="col-6 col-md">
+    <td><a href="/item/<%= item.id %>" class="btn btn-info">Show</a></td>
+  </div>
+  <div class="col-6 col-md">
+    <td><a href="/item/<%= item.id %>/delete" class="btn btn-danger">Delete</a></td>
+  </div>
+    </tr>
+    <% i+= 1 %>
+    <% end %>
+    </tbody>
+  </table>
+  <a href="/items/new"><button type="button" class="btn btn-primary">Add new item</button></a>
+</div>
+</body>
+</html>

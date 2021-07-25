@@ -29,4 +29,8 @@ class ItemsController
   def create(params)
     item = Item.create_item(params['name'], params['price'], params['category_id'])
   end
+
+  def destroy(params)
+    item = Item.delete(params['id'])
+  end
 end

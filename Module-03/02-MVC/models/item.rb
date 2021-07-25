@@ -46,6 +46,11 @@ class Item
     
       item = Item.new(data['id'], data['name'], data['price'], data['category_name'])
       item
-     
+  end
+
+  def self.delete(id)
+    client = create_db_client
+    client.query("DELETE FROM items WHERE id=#{id}")
+    client.query("DELETE FROM item_categories WHERE item_id=#{id}")
   end
 end

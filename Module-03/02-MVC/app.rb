@@ -23,3 +23,8 @@ end
 get '/item/:id' do
   item_controller.show(params)
 end
+
+get '/item/:id/delete' do
+  item_controller.destroy(params)
+  redirect '/'
+end
