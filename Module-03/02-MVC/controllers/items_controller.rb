@@ -1,5 +1,6 @@
 require 'erb'
 require_relative '../models/item'
+require_relative '../models/category'
 
 class ItemsController
 
@@ -14,12 +15,15 @@ class ItemsController
   def show
   end
 
-  # GET /items/add
+  # GET /items/new
   def add
-    
+    categories = Category.get_all_categories
+    renderer = ERB.new(File.read('./views/create.erb'))
+    renderer.result(binding)
   end
 
   # POST /items
-  def create
+  def create(params)
+    item = Item.create_item(params['name'], params['price'], params['category_id'])
   end
 end

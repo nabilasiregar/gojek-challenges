@@ -25,7 +25,7 @@ class Item
     items
   end
 
-  def self.insert_item(name, price, category_id)
+  def self.create_item(name, price, category_id)
     client = create_db_client
     client.query("INSERT INTO items (name, price) VALUES ('#{name}', '#{price}')")
     item_id = client.last_id
