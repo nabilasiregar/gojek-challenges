@@ -12,7 +12,10 @@ class ItemsController
   end
 
   # GET /item/1
-  def show
+  def show(params)
+    item = Item.find_by_id(params['id'])
+    renderer = ERB.new(File.read('./views/show.erb'))
+    renderer.result(binding)
   end
 
   # GET /items/new

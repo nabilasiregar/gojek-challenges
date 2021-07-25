@@ -1,4 +1,5 @@
 require_relative '../db/db_connector.rb'
+require 'pry'
 
 class Item
   attr_accessor :id, :name, :price, :category
@@ -30,5 +31,21 @@ class Item
     client.query("INSERT INTO items (name, price) VALUES ('#{name}', '#{price}')")
     item_id = client.last_id
     client.query("INSERT INTO item_categories (item_id, category_id) values ('#{item_id}', '#{category_id}')")
+  end
+
+  def self.find_by_id(id)
+    client = create_db_client
+    result = client.query("
+      SELECT i.id, i.name, i.price, c.name AS 'category_name'
+      FROM items i
+      LEFT JOIN item_categories ic ON i.id = ic.item_id
+      LEFT JOIN categories c ON ic.category_id = c.id
+      WHERE i.id = #{id}
+      ")
+      data = result.first
+    
+      item = Item.new(data['id'], data['name'], data['price'], data['category_name'])
+      item
+     
   end
 end

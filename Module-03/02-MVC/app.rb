@@ -20,6 +20,6 @@ get '/edit' do
   erb :edit
 end
 
-get '/details' do
-  erb :details
+get '/item/:id' do
+  item_controller.show(params)
 end
