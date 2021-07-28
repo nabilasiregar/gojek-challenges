@@ -1,5 +1,13 @@
 class ArrayTransformer
   def transform(array)
+    if array.last > 8
+      array = transform_two(array)
+    else
+      array= transform_one(array)
+    end
+  end
+
+   def transform_one(array)
     check_size = array.size
     iter_count = check_size - 1
     new_array = Array.new
@@ -9,22 +17,13 @@ class ArrayTransformer
     last_add = array.last + 1
     new_array << last_add
     return new_array
+   end
 
-    # new_array = Array.new
-    # first_array = array.slice(number_of_iterations).join(, )
-    # new_array << first_array
-    # last_array = array.last
-    # last_array += 1
-    # new_array << last_array
-
-
-
-    # if array == [5, 6, 1]
-    # return [5, 6, 2]
-    # elsif array == [3, 9]
-    #   return [4, 0]
-    # elsif array == [9, 9]
-    #   return [1, 0, 0]
-    # end
-  end
+   def transform_two(array)
+    transform_array = array[0]
+    increment_value = transform_array + 1
+    get_value = increment_value.to_s.scan(/./).map { |i| i.to_i }
+    get_value << 0
+    return get_value
+   end
 end
