@@ -5,4 +5,10 @@ RSpec.describe StringTransformer do
     result = string_transformer.transform('b')
     expect(result).to eq('k')
   end
+
+  it 'returns z if passed a' do 
+    string_transformer = StringTransformer.new
+    result = string_transformer.transform('a')
+    expect(result).to eq('z')
+  end
 end
