@@ -19,15 +19,15 @@ class ItemsController
   end
 
   # GET /items/new
-  def add
+  def add_item
     categories = Category.get_all_categories
     renderer = ERB.new(File.read('./views/items/create.erb'))
     renderer.result(binding)
   end
 
   # POST /items
-  def create(params)
-    item = Item.create_item(params['name'], params['price'], params['category_id'])
+  def create_item(params)
+    item = Item.save(params['name'], params['price'], params['category_id'])
   end
 
   def destroy(params)

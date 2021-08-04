@@ -32,11 +32,11 @@ class Item
     items
   end
 
-  def save
+  def self.save(name, price, category_id)
     client = create_db_client
-    client.query("INSERT INTO items (name, price) VALUES ('#{@name}', '#{@price}')")
-    @item_id = client.last_id
-    client.query("INSERT INTO item_categories (item_id, category_id) values ('#{@item_id}', '#{@category_id}')")
+    client.query("INSERT INTO items (name, price) VALUES ('#{name}', '#{price}')")
+    item_id = client.last_id
+    client.query("INSERT INTO item_categories (item_id, category_id) values ('#{item_id}', '#{category_id}')")
   end
 
   def self.find_by_id(id)

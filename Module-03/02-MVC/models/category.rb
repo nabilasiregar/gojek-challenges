@@ -18,4 +18,9 @@ class Category
     end
     categories
   end
+
+  def self.save(name)
+    client = create_db_client
+    client.query("INSERT INTO categories (name) values ('#{name}')")
+  end
 end
