@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Categories Menu</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
 </head>
@@ -15,32 +15,34 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Price</th>
         <th scope="col">Category</th>
+        <th scope="col">Number of Items</th>
       </tr>
     </thead>
     <tbody>
     <% i = 1 %>
-    <% items.each do |item| %>
+    <% categories.each do |category| %>
       <tr>
         <th scope="row"><%= i %></th>
-        <td><%= item.name %></td>
-        <td><%= item.price %></td>
-        <td><%= item.category %></td>
+        <td><%= category.name %></td>
+        <td>10</td>
   </div>
   <div class="col-6 col-md">
-    <td><a href="/item/<%= item.id %>" class="btn btn-info">Show</a></td>
+    <td><a href="/item/<%= category.id %>" class="btn btn-info">Show</a></td>
   </div>
   <div class="col-6 col-md">
-    <td><a href="/item/<%= item.id %>/delete" class="btn btn-danger">Delete</a></td>
+    <td><a href="/item/<%= category.id %>/edit" class="btn btn-info">Edit</a></td>
+  </div>
+  <div class="col-6 col-md">
+    <td><a href="/item/<%= category.id %>/delete" class="btn btn-danger">Delete</a></td>
   </div>
     </tr>
     <% i+= 1 %>
     <% end %>
     </tbody>
   </table>
-  <a href="/items/new"><button type="button" class="btn btn-primary">Add new item</button></a>
+  <a href="/"><button type="button" class="btn btn-outline-primary">Back</button></a>
+  <a href="/items/new"><button type="button" class="btn btn-primary">Add new category</button></a>
 </div>
 </body>
 </html>

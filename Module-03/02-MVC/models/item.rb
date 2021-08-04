@@ -1,4 +1,5 @@
 require_relative '../db/db_connector.rb'
+require_relative './item_category'
 require 'pry'
 
 class Item
@@ -9,6 +10,11 @@ class Item
     @name = name
     @price = price
     @category = category
+  end
+
+  def valid?
+    return false if @name.nil?
+    return false if @price.nil
   end
 
   def self.get_all_items
@@ -26,11 +32,11 @@ class Item
     items
   end
 
-  def self.create_item(name, price, category_id)
+  def save
     client = create_db_client
-    client.query("INSERT INTO items (name, price) VALUES ('#{name}', '#{price}')")
-    item_id = client.last_id
-    client.query("INSERT INTO item_categories (item_id, category_id) values ('#{item_id}', '#{category_id}')")
+    client.query("INSERT INTO items (name, price) VALUES ('#{@name}', '#{@price}')")
+    @item_id = client.last_id
+    client.query("INSERT INTO item_categories (item_id, category_id) values ('#{@item_id}', '#{@category_id}')")
   end
 
   def self.find_by_id(id)
@@ -49,8 +55,9 @@ class Item
   end
 
   def self.delete(id)
+    item_category = ItemCategory.find_by_item(id)
+    item_category.delete(id) unless category.nil?
     client = create_db_client
     client.query("DELETE FROM items WHERE id=#{id}")
-    client.query("DELETE FROM item_categories WHERE item_id=#{id}")
   end
 end

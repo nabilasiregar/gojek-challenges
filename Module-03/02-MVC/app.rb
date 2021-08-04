@@ -1,10 +1,10 @@
 require 'sinatra'
-require 'shotgun'
-require_relative './models/item'
+require_relative './controllers/categories_controller'
+require_relative './controllers/items_controller'
 
 item_controller = ItemsController.new
 get '/' do
-  item_controller.index
+  item_controller.list_items
 end
 
 get '/items/new' do
@@ -27,4 +27,9 @@ end
 get '/item/:id/delete' do
   item_controller.destroy(params)
   redirect '/'
+end
+
+category_controller = CategoriesController.new
+get '/categories' do
+  category_controller.list_categories
 end
