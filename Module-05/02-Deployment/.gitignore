@@ -37,4 +37,5 @@ yarn-debug.log*
 coverage
 .env
 .vagrant
+Vagrantfile
 build.tgz
